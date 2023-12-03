@@ -7,6 +7,8 @@ import {
 import { revalidatePath } from "next/cache";
 import { PhotosGallery } from "@/components/photosGallery";
 
+export const runtime = "edge";
+
 interface PhotoData {
   name: string;
   imageId: string;
@@ -67,22 +69,6 @@ export default async function Page() {
         </div>
         <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
           <PhotosGallery data={data} />
-          {/*{data.map((photoEntry) => (*/}
-          {/*  <div*/}
-          {/*    key={photoEntry.imageId + photoEntry.createdAt}*/}
-          {/*    className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center"*/}
-          {/*  >*/}
-          {/*    <img*/}
-          {/*      src={"/api/img/" + photoEntry.imageId}*/}
-          {/*      width={200}*/}
-          {/*      height={200}*/}
-          {/*      className="object-cover"*/}
-          {/*    />*/}
-          {/*    <p className="text-2xl">{photoEntry.name}</p>*/}
-          {/*    <p className="text-2xl">{photoEntry.description}</p>*/}
-          {/*    <p className="text-2xl">{photoEntry.createdAt}</p>*/}
-          {/*  </div>*/}
-          {/*))}*/}
         </div>
       </main>
     </div>
