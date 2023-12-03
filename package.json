@@ -11,13 +11,16 @@
     "pages:build": "npx @cloudflare/next-on-pages",
     "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
     "pages:watch": "npx @cloudflare/next-on-pages --watch",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --live-reload --compatibility-date=2023-11-21 --compatibility-flag=nodejs_compat -k=memorialKV --r2=memorialBucket"
+    "pages:dev": "npx wrangler pages dev .vercel/output/static --live-reload --compatibility-date=2023-11-21 --compatibility-flag=nodejs_compat -k=memorialKV --r2=memorialBucket",
+    "dev:linux": "npm run cf:proxy & npm run dev"
   },
   "dependencies": {
     "cf-bindings-proxy": "^0.7.1",
     "next": "14.0.3",
+    "photoswipe": "^5.4.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-photoswipe-gallery": "^3.0.0-alpha.0"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.8.0",

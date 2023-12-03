@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useIsLoggedIn } from "@/app/loginService";
 
 const links = [
   { to: "/", label: "Home" },
@@ -12,8 +13,9 @@ const links = [
 
 export function Header() {
   const pathname = usePathname();
+  const [isLoggedIn] = useIsLoggedIn();
 
-  return (
+  return isLoggedIn ? (
     <nav className="sticky top-0 flex justify-center py-6 bg-neutral-900">
       <ul className="flex container justify-between">
         {links.map(({ to, label }) => (
@@ -34,5 +36,7 @@ export function Header() {
         ))}
       </ul>
     </nav>
+  ) : (
+    <> </>
   );
 }

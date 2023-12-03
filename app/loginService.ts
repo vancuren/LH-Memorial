@@ -2,20 +2,24 @@ import { useEffect, useState } from "react";
 
 const isServer = typeof window === "undefined";
 
-export default function useLocalStorage(key: string, initialValue: any) {
+export default function useLocalStorage<T>(
+  key: string,
+  initialValue: T,
+  initialServerValue?: T,
+): [T, (value: T) => void] {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState(() => initialValue);
+  const [storedValue, setStoredValue] = useState<T>(() => initialValue);
 
   const initialize = () => {
     if (isServer) {
-      return initialValue;
+      return initialServerValue ?? initialValue;
     }
     try {
       // Get from local storage by key
       const item = window.localStorage.getItem(key);
       // Parse stored json or if none return initialValue
-      return item ? JSON.parse(item) : initialValue;
+      return item ? (JSON.parse(item) as T) : initialValue;
     } catch (error) {
       // If error also return initialValue
       console.log(error);
@@ -33,7 +37,7 @@ export default function useLocalStorage(key: string, initialValue: any) {
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
-  const setValue = (value: any) => {
+  const setValue = (value: T) => {
     try {
       // Allow value to be a function so we have same API as useState
       const valueToStore =
@@ -52,7 +56,6 @@ export default function useLocalStorage(key: string, initialValue: any) {
   return [storedValue, setValue];
 }
 
-export function useIsLoggedIn() {
-  const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", false);
-  return [isLoggedIn, setIsLoggedIn];
+export function useIsLoggedIn(): [boolean, (value: boolean) => void] {
+  return useLocalStorage<boolean>("isLoggedIn", false, true);
 }

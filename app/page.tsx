@@ -1,38 +1,35 @@
 "use client";
 import { useIsLoggedIn } from "@/app/loginService";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { SubmitButton, TextInput } from "@/components/textInput";
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<string | null>(null);
 
+  const onSubmit = (e: FormData) => {
+    if (e.get("name")?.toString().toLowerCase() === "hunter") {
+      setIsLoggedIn(true);
+    } else {
+      setError("Incorrect");
+    }
+  };
   return (
     <main>
       {!isLoggedIn && (
         <div className="flex w-full min-h-screen place-items-center place-content-center">
-          <div className="grid space-y-4 place-items-center">
+          <form action={onSubmit} className="grid space-y-4 place-items-center">
             <p>To enter, what is Louie&apos;s full first name?</p>
-            <input
-              type="text"
-              ref={inputRef}
-              className="px-4 py-2 border-2 border-gray-300 rounded-md bg-gray-300 text-white"
-              // onChange={(e) => {
-              //   if (e.target.value.toLowerCase() === "hunter") {
-              //     setIsLoggedIn(true);
-              //   }
-              // }}
-            />
-            <button
-              onClick={() => {
-                if (inputRef.current?.value.toLowerCase() === "hunter") {
-                  setIsLoggedIn(true);
-                }
-              }}
-              className="px-4 py-2 bg-orange-500 text-white rounded-md"
-            >
-              Submit
-            </button>
-          </div>
+            <div>
+              <span>
+                Louis-
+                <TextInput label="" name="name" ref={inputRef} />
+              </span>
+            </div>
+            {error && <p className="text-red-500">{error}</p>}
+            <SubmitButton onClick={() => {}} />
+          </form>
         </div>
       )}
       {isLoggedIn && (
