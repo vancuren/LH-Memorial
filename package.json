@@ -7,11 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cf:proxy": "npx cf-bindings-proxy --kv=memorialKV --r2=memorialBucket",
+    "cf:proxy": "npx cf-bindings-proxy --kv=vcgmemorialkv --r2=vcg-memorial-bucket",
     "pages:build": "npx @cloudflare/next-on-pages",
-    "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
+    "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static --project-name=lh-memorial",
     "pages:watch": "npx @cloudflare/next-on-pages --watch",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --live-reload --compatibility-date=2023-11-21 --compatibility-flag=nodejs_compat -k=memorialKV --r2=memorialBucket",
+    "pages:dev": "npx wrangler pages dev .vercel/output/static --live-reload --compatibility-date=2023-11-21 --compatibility-flag=nodejs_compat -k=vcgmemorialkv --r2=vcg-memorial-bucket",
     "dev:linux": "npm run cf:proxy & npm run dev"
   },
   "dependencies": {
