@@ -35,7 +35,7 @@ Please use your judgement if unsure.
 5. In the Cloudflare dashboard, go to the `Workers & Pages` section on the left, and pick your page from the list.
 6. Go to Settings -> Functions -> R2 bucket bindings, and add a binding for the `memorialBucket` bucket on both the Production and Preview environments. (See
    the tab just to the left of `Edit bindings`)
-
+<!-- --project-name=lh-memorial -->
 # Development
 
 1. Run `npm run dev:linux` to start the development server, and Cloudflare binding proxy
